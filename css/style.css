@@ -1,0 +1,419 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
+
+html, body {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    height : 100%;
+    width : 100%;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      overflow: hidden
+}
+#header{
+    position: relative;
+  color: #000000;
+  font-size: 20px;
+  background-color: red;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  height:10%
+
+
+}
+
+#main {
+    position: relative;
+  color: #000000;
+  font-size: 20px;
+ /* background-color: blue;*/
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  height:90%;
+  margin-top: 50px
+}
+
+#container1 {
+  position: relative;
+  color: #000000;
+  font-size: 16px;
+  background-color: #dcdcdc ;
+  width: 45%;
+  height: 60%;
+  float: left;
+    border-style: solid;
+    border-color: #FFFFFF;
+    border-width: 4px;
+}
+
+
+
+#container2 {
+  position: relative;
+  color: #000000;
+  font-size: 16px;
+  background-color: #dcdcdc;
+  width: 45%;
+  height: 60%;
+  float: right;
+      border-style: solid;
+    border-color: #FFFFFF;
+    border-width: 4px
+}
+
+
+#text1, #text2  {
+    background-color: transparent;
+    position: absolute;
+    z-index: 10;
+    text-align: center;
+    left: 10px;
+    bottom: 0
+}
+
+#text1a, #text2a  {
+    background-color: transparent;
+    position: absolute;
+    z-index: 10;
+    text-align: center;
+    right: 10px;
+    bottom: 0
+}
+
+
+
+/* -------------------------------------------*/
+
+
+
+#myTitleBar {
+    top:0px;
+    left:0px;
+    padding-top:30px;
+    padding-bottom:30px;
+    font-size :30px;
+    background-color: #d43939;
+    width : 99%;
+    height : 5% ;
+    font-weight: 700; 
+    color: #fff;
+}
+
+#myUserInfo {
+    padding-top:130px;
+    line-height: 30px;
+    background-color: #e0cab1 ;
+    border: none;
+    font-size: 14px
+}
+#myStatusBar {
+    background-color: #d3d3d3;
+    width: 100%;
+    text-align: left;
+    position: relative;
+    top: 380px
+}
+#myGoBack {
+    text-align: right
+}
+#myTopScores {
+    position:relative;
+    background-color: #d3d3d3;
+    width: 10px;
+    height: 380px;
+    margin-top:-240px;
+    -webkit-transition: width 1s, -webkit-transform 1s;
+    transition: width 1s, transform 1s
+}
+#myChallengeBoard {
+    position:relative;
+    margin-left : auto;
+    margin-right : auto;
+    width: 100%;
+    margin-top: 0px;
+    padding-top:0px;
+    padding-bottom:50px;
+    text-align:center
+}
+
+.inner {
+    background-color: #ffffff;
+    width: 140px;
+    height: 100px;
+    display: inline-block;
+    text-align:center;
+    margin-right: 10px;
+    margin-top: 50px
+}
+#myGame {
+    position: relative;
+    background-color: #e0cab1;
+    width : 99%;
+    height : 100%;
+    cursor: crosshair;
+    float:center;
+}
+
+#myParamCounter {
+    width=100%
+}
+.draggable {
+    cursor: move
+}
+
+#myMasterDiv{
+    position: relative;
+    width:315px;
+    height:315px;
+    top:130px;
+    margin: 0 auto;
+}
+
+#myDispCanvas, #myVMCanvas{
+    position: absolute;
+    left:0px;
+    top:0px
+}
+
+#myNodeCanvas{
+    position: absolute;
+    left:-80px;
+    top:-80px;
+    pointer-events:none;
+}
+
+#myWinLoseCanvas{
+    position: absolute;
+    left:0px;
+    top:0px;
+    pointer-events:none;
+
+
+}
+#myNewCanvas{
+    position: absolute;
+    left:0px;
+    top:0px;
+}
+#myBCsvg{
+    position: absolute;
+    /* should be - 80 */
+    left:-80px;
+    top:-80px;
+    pointer-events:none;
+    /* should be + 160 */
+    width: 475px;
+    height:475px
+
+}
+#myStateCanvas{
+    position: absolute;
+    left: -260px;
+    top: 0px;   
+}
+#myBlockCanvas{
+    position: absolute;
+    left:0px;
+    top:0px;
+    /* this canvas should not allow clicking through */
+}
+
+.bucket_outer {
+    width: 359px;
+    height: 30px;
+    border: 3px solid #d43939;
+
+    overflow: hidden;
+    position: absolute;
+    
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    z-index:7;
+    float:left;
+    background-color: #e0cab1;
+}
+
+.bucket_inner, .bucket_inner div {
+    height: 100%;
+
+    left: 0px;
+    position: absolute;
+    overflow: hidden;
+    z-index:8;
+}
+
+.bucket_inner {
+    border: 2px solid #09b39c;
+    border-top-width: 0;
+    background-color: #09b39c;
+    
+    bottom: 0;
+    width: 0%;
+
+}
+
+.bucket_inner div {
+
+    border: 2px solid #09b39c;
+    border-top-width: 0;
+    background-color: #d43939;
+    left:80%;
+    bottom: 0;
+    width: 5px;
+    height: 100%;
+    z-index:9;
+}
+
+
+#myBucket{
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    color: #fff;
+    left: 0px;
+}
+#myToolBar{
+    position: relative;
+    top: 220px;
+    padding-top: 30px;
+    width: 940px;
+    margin: 0 auto;
+}
+
+#myRadioDiv{
+margin-left: 33px;
+float: left;
+}
+
+#myCalB{
+float: left;
+font-size: 19px;
+margin-left: 185px;
+height:70px;
+width:70px;
+}
+
+#myPrompt {
+left: 300px;
+top: 80px;
+position: absolute;
+border: none;
+opacity: 0.7;
+background-color: #e0cab1;
+}
+
+/*for state menu */
+
+fieldset {
+      border: 0;
+float: left;
+margin-left: -375px;
+margin-top: 35px;
+
+
+}
+label {
+  display: block;
+  margin: 30px 0 0 0;
+}
+select {
+  width: 365px;
+}
+.overflow {
+  height: 100px;
+}
+
+#bucketDiv{
+width: 290px;
+height: 72px;
+position: absolute;
+top: 68px;
+left: 287px;
+}
+
+#myMarker{
+
+    /* CHANGE HERE */
+    left: 80%;
+    background-color: #ffffff;
+    height: 70px;
+    width: 5px;
+    z-index: 20;
+    float: left;
+    position: absolute;
+
+}
+#myScore{
+position: relative;
+width: 835px;
+height: 315px;
+font-size: 14px;
+border: 0;
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+border-radius: 4px;
+top: 0px;
+left: -260px;
+pointer-events:none;
+
+}
+
+#myGuide, #myGuide1, #myGuide2, #myPlayer1, #myPlayer1Score {
+    background-color: #e0cab1;  /*  */
+    text-align: center;
+    font-size: 22px;
+    border: none;
+    font-weight: 600;
+    width: 150px;
+    position: absolute;
+    left: 0px;
+}
+
+#myPlayer2, #myPlayer2Score {
+    background-color: #e0cab1 ;  /* */
+    text-align: center;
+    font-size: 22px;
+    border: none;
+    font-weight: 600;
+    width: 150px;
+    position: absolute;
+    left: 685px;
+    top: 0px;
+}
+
+#myPlayer2Score {
+    background-color: #e0cab1;  /*  */
+    text-align: center;
+    font-size: 22px;
+    border: none;
+    font-weight: 600;
+    width: 150px;
+    position: absolute;
+    left: 685px;
+    top: 38px;
+}
+
+#mySquareRoot{
+    position: relative;
+    left: -11px;
+    height: 60px;
+}
+
+#allow, #block{
+width: 28px;
+position: absolute;
+top: -38px;
+left: 455px;
+}
+

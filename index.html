@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Mecano Equate</title>
+        <meta charset="utf-8">
+        <!-- LIB SCRIPTS -->
+	    <script type="text/javascript" src="libScripts/three.min.js"></script>
+        <script type="text/javascript" src="libScripts/stlLoader.js"></script>
+        <script type="text/javascript" src="libScripts/TrackballControls.js"></script>
+        <script type="text/javascript" src="libScripts/socket.io.js"></script>
+        <script type="text/javascript" src="libScripts/jquery-1.8.2.js"></script>
+        <script src='libScripts/nprogress.js'></script>
+
+
+	    <!--style-->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel='stylesheet' href='css/nprogress.css'/>
+
+
+    </head>
+    <body>
+
+        <div id="header">
+
+                Equate is a utility to compare stls 
+
+        </div>
+        <div id="main">
+                
+
+                        <div id="container1" >
+                            <div id = "text1">
+                                drop reference stl here
+                            </div>
+
+                             <div id = "text1a">
+                            </div>
+
+                        </div>
+
+
+
+                        
+
+                        <div id="container2" >
+                            <div id = "text2">
+                                drop subject stl here
+                            </div>
+
+                            <div id = "text2a">
+                            </div>
+
+                        </div>
+
+
+
+
+        </div>
+
+            
+
+
+
+    </body>
+
+
+    <!-- MY SCRIPTS -->
+    <script type="text/javascript" src="scripts/main.js"></script>
+    <script type="text/javascript" src="scripts/aligners.js"></script>
+    <script type="text/javascript" src="scripts/calculate.js"></script>
+
+
+
+
+
+
+
+    <script type="x-shader/x-vertex" id="vertexShader">
+        // Put the Vertex Shader code here
+    </script>
+
+    <script type="x-shader/x-vertex" id="fragmentShader">
+        // Put the Fragment Shader code here
+    </script>
+
+
+
+
+
+
+
+</html>

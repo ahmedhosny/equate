@@ -1,0 +1,5 @@
+function calculate(A,B){
+
+
+    
+}
