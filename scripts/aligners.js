@@ -136,7 +136,7 @@ function checkProgress(){
             console.log("myVer1 " , myVer1);
             console.log("myVer2 " , myVer2);
             console.log("calculation started");
-            calculate (myVer1,myVer2);   
+            // calculate (myVer1,myVer2);   
         });
     }
 }
