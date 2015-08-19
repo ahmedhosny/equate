@@ -10,15 +10,18 @@ myCamera1,
 myRenderer1,
 myMaterial1,
 controls1,
-myMesh1;
+myMesh1,
+binary1;
 //
 var myScene2,
 myCamera2,
 myRenderer2,
 myMaterial2,
 controls2,
-myMesh2;
+myMesh2,
+binary2;
 var stlLoader = new THREE.STLLoader();
+
 //
 var fov =30;
 // NProgress.configure({ showSpinner: false });
@@ -226,14 +229,14 @@ function handleFileSelect1(evt) {
 
     reader.onload = function(e) {
         // get file content
-        var binary = e.target.result;
+        binary1 = e.target.result;
 
         if (firstStl1){
-            loadSTL(binary, "container1");
+            loadSTL(binary1, "container1");
             console.log("1 stl loaded"); 
         }
         else{
-            loadAnotherSTL(binary, "container1");
+            loadAnotherSTL(binary1, "container1");
             console.log("1 another stl loaded"); 
         }
 
@@ -268,14 +271,14 @@ function handleFileSelect2(evt) {
 
     reader.onload = function(e) {
         // get file content
-        var binary = e.target.result;
+        binary2 = e.target.result;
 
         if (firstStl2){
-            loadSTL(binary, "container2");
+            loadSTL(binary2, "container2");
             console.log("2 stl loaded"); 
         }
         else{
-            loadAnotherSTL(binary, "container2");
+            loadAnotherSTL(binary2, "container2");
             console.log("2 another stl loaded"); 
         }
     }
