@@ -95,11 +95,11 @@ function calculate(Ainput,Binput){
 
 	// get Translation matrix
 	var T = getT(R, lc, rc);
-	console.table(T);
+	// console.table(T);
 
 	// Get transformation matrix (without translation)
 	var TM = RtoT(R);
-	console.table(TM);
+	// console.table(TM);
 
 	var result = [T,TM];
 	return result;

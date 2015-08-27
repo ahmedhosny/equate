@@ -94,8 +94,8 @@ function addSphere(intersect,scene,counter){
     });
 
     //
-    var radius = 20;
-    var geometry = new THREE.SphereGeometry( 20, 20,20);
+    var radius = 3;
+    var geometry = new THREE.SphereGeometry( radius, 20,20);
     
     var sphere = new THREE.Mesh( geometry, material );
     sphere.position.x = intersect.x;

@@ -1,5 +1,5 @@
 
-
+var siko;
 
 
 //
@@ -386,6 +386,8 @@ function initiateScene2(){
 function createScene1( geometry, materials ) {
     myMesh1 = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial()  );  // 
     myScene1.add(myMesh1); 
+
+
     //
     // CREATE BOUNDING BOX
     myMesh1.geometry.computeBoundingBox();

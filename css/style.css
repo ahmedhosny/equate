@@ -43,7 +43,7 @@ html, body {
   font-size: 16px;
   background-color: #dcdcdc ;
   width: 45%;
-  height: 60%;
+  height: 80%;
   float: left;
     border-style: solid;
     border-color: #FFFFFF;
@@ -58,7 +58,7 @@ html, body {
   font-size: 16px;
   background-color: #dcdcdc;
   width: 45%;
-  height: 60%;
+  height: 80%;
   float: right;
       border-style: solid;
     border-color: #FFFFFF;
@@ -72,7 +72,7 @@ html, body {
   font-size: 16px;
   background-color: #dcdcdc;
   width: 100%;
-  height: 60%;
+  height: 80%;
       border-style: solid;
     border-color: #FFFFFF;
     border-width: 4px
@@ -96,6 +96,14 @@ html, body {
     text-align: center;
     right: 10px;
     bottom: 0
+}
+
+#counter{
+
+    background-color: transparent;
+    border: 0px solid;
+    text-align:center
+
 }
 
 

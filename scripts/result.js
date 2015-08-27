@@ -4,7 +4,7 @@ function resultScene(){
 	// empty
 	$("#main").empty();
 	// add div
-	document.getElementById('main').innerHTML = ' <div id="container3" ><div id = "text1">result</div><div id = "text1a"></div></div>' ;
+	document.getElementById('main').innerHTML = ' <div id="container3" ><div id = "text1">result</div><div id = "text1a"></div> </div>   <button id="raytraceButton" type="button" disabled> calculate deviation</button> <br> <input type="text" id="counter" value="" readonly> '  ;
 
 	var container3 = document.getElementById("container3");
 
@@ -12,6 +12,13 @@ function resultScene(){
 	// Load  both files
 	loadSTL3(binary1, "container3");
 	loadSTL3(binary2, "container3"); // this is now myMesh3
+
+    // prepare raytace calculation button
+    $('#raytraceButton').click(function(){
+        console.log("raytrace calculation started");
+        raycast(myMesh1,myMesh3);
+        console.log("raytrace calculation ended");
+    });
 
 }
 
@@ -98,29 +105,48 @@ function loadSTL3(filePath, myContainer){
 
 
 function createScene3( geometry, materials ) {
-    myMesh3 = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial()  );  // 
+    // wireframe materials of different colors
+    if(resultCounter == 0){
+        var mat = new THREE.MeshBasicMaterial( {  color: 0x0000FF , opacity: 0.4, transparent: true, wireframe: true } );
+    }
+    else{
+        var mat = new THREE.MeshBasicMaterial( {  color: 0xFF0000 , opacity: 0.1, transparent: true, wireframe: true } );
+        // double sides so that it detects rays coming from behind
+        mat.side = THREE.DoubleSide;
+    }
+
+    
+    myMesh3 = new THREE.Mesh( geometry , mat );  // 
     myScene3.add(myMesh3); 
+
+
+
     //
-    // CREATE BOUNDING BOX
-    myMesh3.geometry.computeBoundingBox();
-    var boundingBox2 = myMesh3.geometry.boundingBox;
-    // FIX CAMERA
-    var myX2= (boundingBox2.max.x + boundingBox2.min.x) / 2
-    var myY2= (boundingBox2.max.y + boundingBox2.min.y) / 2
-    var myZ2= (boundingBox2.max.z + boundingBox2.min.z) / 2
+    // if first mesh
+    //
+    
+    if(resultCounter == 0){
+         // CREATE BOUNDING BOX
+        myMesh3.geometry.computeBoundingBox();
+        var boundingBox2 = myMesh3.geometry.boundingBox;
+        // FIX CAMERA
+        var myX2= (boundingBox2.max.x + boundingBox2.min.x) / 2
+        var myY2= (boundingBox2.max.y + boundingBox2.min.y) / 2
+        var myZ2= (boundingBox2.max.z + boundingBox2.min.z) / 2
 
-    // FIX TARGET
-    myCamera3.target = new THREE.Vector3(myX2,myY2,myZ2);
+        // FIX TARGET
+        myCamera3.target = new THREE.Vector3(myX2,myY2,myZ2);
 
-    // SET POSITION
-    myCamera3.position.set(boundingBox2.max.x, boundingBox2.max.y, boundingBox2.max.z);
+        // SET POSITION
+        myCamera3.position.set(boundingBox2.max.x, boundingBox2.max.y, boundingBox2.max.z);
 
-    // FIX ROTATION 
-    myCamera3.updateProjectionMatrix();
+        // FIX ROTATION 
+        myCamera3.updateProjectionMatrix();
 
-    // FIX CONTROLS
-    controls3.target.set( Math.round(myX2) , Math.round(myY2) , Math.round(myZ2) );
-
+        // FIX CONTROLS
+        controls3.target.set( Math.round(myX2) , Math.round(myY2) , Math.round(myZ2) );
+        
+    }
 
     //
     // CHANGE myMesh3 position and rotation
@@ -128,7 +154,9 @@ function createScene3( geometry, materials ) {
     resultCounter+= 1;
     // if acting on second mesh:-
     if(resultCounter == 2){
+        // update position of myMesh3
     	run();
+
     }
 
 }
