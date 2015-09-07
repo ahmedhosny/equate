@@ -1,5 +1,6 @@
 function run(){
 
+
 	// 3xN 
 	// 	P1	P2	P3	...
 	// X
@@ -24,7 +25,7 @@ function run(){
 
 	// 3. Pass on to scene
 	// SET POSITION
-	 myMesh3.position.set( result[0][0] , result[0][1] , result[0][2]  ) ;
+	myMesh3b.position.set( result[0][0] , result[0][1] , result[0][2]  ) ;
 	 // SET ROTATION
 	var rotMat = new THREE.Matrix4();
 	rotMat.set(   result[1][0][0] ,  result[1][0][1]  , result[1][0][2] , result[1][0][3] ,
@@ -34,10 +35,20 @@ function run(){
 
 	var quat = new THREE.Quaternion();
 	quat.setFromRotationMatrix ( rotMat );
-	myMesh3.rotation.setFromQuaternion ( quat , 'XYZ');
+	myMesh3b.rotation.setFromQuaternion ( quat , 'XYZ');
+
 	render3();
 
 	console.log("alignment done")
+
+	//
+	// myMesh3.geometry.verticesNeedUpdate = true;
+	// myMesh3.geometry.dynamic = true;
+
+
+	
+	// myGeom3 = new THREE.Geometry().fromBufferGeometry( myMesh3.geometry );
+	// console.log(myGeom3)
 
 
 }

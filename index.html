@@ -4,64 +4,143 @@
         <title>Mecano Equate</title>
         <meta charset="utf-8">
         <!-- LIB SCRIPTS -->
-	    <script type="text/javascript" src="libScripts/three.min.js"></script>
+        <script type="text/javascript" src="libScripts/three.min.js"></script>
         <script type="text/javascript" src="libScripts/stlLoader.js"></script>
         <script type="text/javascript" src="libScripts/TrackballControls.js"></script>
-        <script type="text/javascript" src="libScripts/jquery-1.8.2.js"></script>
+        <script type="text/javascript" src="libScripts/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src='libScripts/nprogress.js'></script>
         <script type="text/javascript" src='libScripts/math.min.js'></script>
         <script type="text/javascript" src='libScripts/numeric-1.2.6.min.js'></script>
+        <script type="text/javascript" src="libScripts/TypedArrayUtils.js"></script>
+        <script type="text/javascript" src="libScripts/rainbowvis.js"></script>
+        <script type="text/javascript" src="libScripts/underscore-min.js"></script>
+        <script type="text/javascript" src="libScripts/bootstrap.min.js"></script>
 
 
-	    <!--style-->
-		<link rel="stylesheet" type="text/css" href="css/style.css">
+        
+
+
+        <!--style-->
         <link rel='stylesheet' href='css/nprogress.css'/>
+        <link rel="stylesheet" href="css/bootstrap.css"> 
+        <link rel="stylesheet" href="css/bootstrap-theme.css"> 
+        <link rel="stylesheet" href="css/font-awesome.min.css"> <!-- load fontawesome -->
+        <link rel="stylesheet" href="css/bootstrap.vertical-tabs.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+
+        <!-- google analytic script -->
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-53741901-5', 'auto');
+          ga('send', 'pageview');
+
+        </script>
 
 
     </head>
     <body>
 
-        <div id="header">
 
-                Equate is a utility to compare stls 
-
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><b> Mecano Equate </b> <i> web utility for aligning and comparing .stl files </i> </a>
         </div>
-        <div id="main">
-                
-
-                        <div id="container1" >
-                            <div id = "text1">
-                                drop reference stl here
-                            </div>
-
-                             <div id = "text1a">
-                            </div>
-
-                        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">about</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
 
 
 
-                        
 
-                        <div id="container2" >
-                            <div id = "text2">
-                                drop subject stl here
-                            </div>
-
-                            <div id = "text2a">
-                            </div>
-
-                        </div>
+      </div>
+    </nav>
 
 
 
-                       
-        </div>
+<div class="container" id = "main" >
+
+          <!-- Main component for a primary marketing message or call to action -->
+<!--       <div class="jumbotron">
+        <p>drop - align - compare</p>
+      </div> -->
+
+
+  <div class="row "> 
+    <div class="col-sm-6" > 
+      <div class="my-inner" >
+
+
+
+        <div id="container1" >
+
+                <img src="img/con1before.svg" id="con1Logo"> </img>
+
+
+                <div id = "text1">
+                </div>
+
+                 <div id = "text1a">
+                </div>
+
+            </div>
+
+            <!-- PROMPT --> 
+
+            <hr>
+            <p id = "prompt" > do something </p>
+
+
+      </div>
+    </div> 
+    <div class="col-sm-6" > 
+      <div class="my-inner" >
+
+            <div id="container2" >
+
+               <img src="img/con1before.svg" id="con2Logo"> </img>
+
+
+                <div id = "text2">
+                </div>
+
+                <div id = "text2a">
+                </div>
+
+            </div>
+
+
+
+
+
+
+      </div> 
+    </div> 
+  </div> 
+
+
+<hr>
+
+</div> 
+
+
+        <button id="temp" > temp gpgpu </button>
 
             
-
-
-
     </body>
 
 
@@ -70,24 +149,83 @@
     <script type="text/javascript" src="scripts/aligners.js"></script>
     <script type="text/javascript" src="scripts/calculate.js"></script>
     <script type="text/javascript" src="scripts/result.js"></script>
-    <script type="text/javascript" src="scripts/raycast.js"></script>
+    <!-- <script type="text/javascript" src="scripts/raycast.js"></script> -->
+    <!-- <script type="text/javascript" src="scripts/gpgpu.js"></script> -->
+    <script type="text/javascript" src="scripts/nearest.js"></script>
+    <script type="text/javascript" src="scripts/ui.js"></script>
+
+
+
+    
 
 
 
 
 
+<!--
+// this is constrant across all vertices
+// sets a very large distance to compare to
+
+ // // uniform vec3 color; 
+// attribute float closestDistance; // vary from one vertex to another
+ // varying vec3 vColor;  // 'varying' vars are passed to the fragment shader
+  // vColor = color;   // pass the color to the fragment shader
+// gl_PointSize = size;
+// float temp = Math.sqrt( Math.pow( ( refX - subVerX[i]  ) , 2 ) + 
+//                           Math.pow( ( refY - subVerY[i]  ) , 2 ) +
+//                           Math.pow( ( refZ - subVerZ[i]  ) , 2 )  );
+
+-->
 
 
     <script type="x-shader/x-vertex" id="vertexShader">
-        // Put the Vertex Shader code here
+
+        // array of vectors containing the mesh to compare to
+        // uniform vec3 uVec3Array[512*4]; 
+
+
+
+
+        void main() {
+
+
+            // float distance = 1000000000000000000.1;
+
+            // for (int i=0; i< 512*4 ; i++) {
+
+            //     float tempX  =  ( position.x - uVec3Array[i].x ) * ( position.x - uVec3Array[i].x ) ; 
+            //     float tempY  =  ( position.y - uVec3Array[i].y ) * ( position.y - uVec3Array[i].y ) ; 
+            //     float tempZ  =  ( position.z - uVec3Array[i].z ) * ( position.z - uVec3Array[i].z ) ; 
+            //     float temp = sqrt(tempX + tempY + tempZ);
+                    
+            //     if (temp < distance){
+            //         distance = temp;
+            //     }   
+
+            // }
+            // // pass distance somewhere
+                
+            // vec3 newPosition = position + vec3(distance,distance,distance);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4( Position, 1.0 );
+
+
+
+
+        }
+
     </script>
 
     <script type="x-shader/x-vertex" id="fragmentShader">
-        // Put the Fragment Shader code here
+
+        uniform sampler2D uTex;
+
+        void main() {
+          gl_FragColor = vec4(1.0,  // R
+                              0.0,  // G
+                              1.0,  // B
+                              1.0); // A
+        }
     </script>
-
-
-
 
 
 

@@ -11,7 +11,9 @@ myRenderer1,
 myMaterial1,
 controls1,
 myMesh1,
-binary1;
+binary1,
+myGeom1,
+gl1; // to pass onto gpgpu
 //
 var myScene2,
 myCamera2,
@@ -212,6 +214,9 @@ function updateProgress(evt){
 
 function handleFileSelect1(evt) {
 
+    // remove the icon
+    $('#con1Logo').remove();
+
     //CHANGE PROGRESS BAR
     NProgress.configure({ parent: '#container1' });
     NProgress.start();
@@ -254,6 +259,9 @@ function handleFileSelect1(evt) {
 // CONTAINER 2
 
 function handleFileSelect2(evt) {
+
+    // remove the icon
+    $('#con2Logo').remove();
 
     //CHANGE PROGRESS BAR
     NProgress.configure({ parent: '#container2' });
@@ -323,6 +331,7 @@ function initiateScene1(){
     myCamera1 = new THREE.PerspectiveCamera(fov,window.innerWidth / window.innerHeight,1,10000);
     // RENDER
     myRenderer1 = new THREE.WebGLRenderer();
+    gl1 = myRenderer1.context;
     // DUMMY POSITION
     myCamera1.target = new THREE.Vector3(0,0,0);
     myCamera1.position.set(-8.0, -30, 9);
@@ -384,7 +393,8 @@ function initiateScene2(){
 // CREATE SCENE FUNC AND ADJUST CAMERA
 //
 function createScene1( geometry, materials ) {
-    myMesh1 = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial()  );  // 
+    myGeom1 = geometry;
+    myMesh1 = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial( {opacity: 0.3} ) );  // 
     myScene1.add(myMesh1); 
 
 

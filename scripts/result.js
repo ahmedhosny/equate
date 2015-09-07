@@ -4,7 +4,7 @@ function resultScene(){
 	// empty
 	$("#main").empty();
 	// add div
-	document.getElementById('main').innerHTML = ' <div id="container3" ><div id = "text1">result</div><div id = "text1a"></div> </div>   <button id="raytraceButton" type="button" disabled> calculate deviation</button> <br> <input type="text" id="counter" value="" readonly> '  ;
+	document.getElementById('main').innerHTML = ' <div id="container3" ><div id = "text1">result</div><div id = "text1a"></div> </div>   <button id="raytraceButton" type="button"> calculate deviation</button> <br> <input type="text" id="counter" value="" readonly> '  ;
 
 	var container3 = document.getElementById("container3");
 
@@ -16,7 +16,8 @@ function resultScene(){
     // prepare raytace calculation button
     $('#raytraceButton').click(function(){
         console.log("raytrace calculation started");
-        raycast(myMesh1,myMesh3);
+        tryGPGPU(myMesh1,myMesh3);
+        // raycast(myMesh1,myMesh3);
         console.log("raytrace calculation ended");
     });
 
@@ -27,7 +28,9 @@ var myScene3,
 myCamera3,
 myRenderer3,
 controls3, 
-myMesh3;
+myMesh3a,
+myMesh3b,
+myGeom3;
 var resultCounter = 0;
 
 
@@ -72,6 +75,8 @@ function initiateScene3(){
 function render3(){
         myRenderer3.render(myScene3,myCamera3);
         controls3.update();
+        myMesh3b.geometry.dynamic = true;
+        myMesh3b.geometry.attributes.position.needsUpdate = true;
         requestAnimationFrame(render3);
 }
 
@@ -99,25 +104,28 @@ function loadSTL3(filePath, myContainer){
         myRenderer3.setSize( $("#" + myContainer).innerWidth() , $("#" + myContainer).innerHeight() );
         windowContainer.appendChild(myRenderer3.domElement);
         myRenderer3.setClearColor( 0xDCDCDC , 1 );
-        render3();
+        
 
 }
 
 
 function createScene3( geometry, materials ) {
     // wireframe materials of different colors
+    console.log(geometry);
     if(resultCounter == 0){
         var mat = new THREE.MeshBasicMaterial( {  color: 0x0000FF , opacity: 0.4, transparent: true, wireframe: true } );
+        myMesh3a = new THREE.Mesh( geometry , mat );
+        myScene3.add(myMesh3a); 
     }
     else{
         var mat = new THREE.MeshBasicMaterial( {  color: 0xFF0000 , opacity: 0.1, transparent: true, wireframe: true } );
         // double sides so that it detects rays coming from behind
-        mat.side = THREE.DoubleSide;
+        // mat.side = THREE.DoubleSide;
+        myMesh3b = new THREE.Mesh( geometry , mat );
     }
 
     
-    myMesh3 = new THREE.Mesh( geometry , mat );  // 
-    myScene3.add(myMesh3); 
+    
 
 
 
@@ -126,9 +134,9 @@ function createScene3( geometry, materials ) {
     //
     
     if(resultCounter == 0){
-         // CREATE BOUNDING BOX
-        myMesh3.geometry.computeBoundingBox();
-        var boundingBox2 = myMesh3.geometry.boundingBox;
+        // CREATE BOUNDING BOX
+        myMesh3a.geometry.computeBoundingBox();
+        var boundingBox2 = myMesh3a.geometry.boundingBox;
         // FIX CAMERA
         var myX2= (boundingBox2.max.x + boundingBox2.min.x) / 2
         var myY2= (boundingBox2.max.y + boundingBox2.min.y) / 2
@@ -149,13 +157,21 @@ function createScene3( geometry, materials ) {
     }
 
     //
-    // CHANGE myMesh3 position and rotation
+    // CHANGE myMesh3b position and rotation
     //
     resultCounter+= 1;
     // if acting on second mesh:-
     if(resultCounter == 2){
         // update position of myMesh3
     	run();
+
+        render3();
+
+        myScene3.add(myMesh3b); 
+
+        myGeom3 = myMesh3b.geometry;
+
+
 
     }
 
