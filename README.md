@@ -1,7 +1,7 @@
 # cameno-eq
 
 
-This project is browser-based utility to align and compare stl files. 
+This project is browser-based utility to align and compare stl files and can be found here: http://equate.mecano.io
 
 The first step involves applying rigid transformation (translation and rotation only) on the subject .stl 
 to align it with the reference .stl. This is done by picking 3 points on both the reference and subject models
