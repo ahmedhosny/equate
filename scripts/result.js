@@ -1,25 +1,65 @@
+//4// create the result scene
 
 function resultScene(){
 
 	// empty
 	$("#main").empty();
 	// add div
-	document.getElementById('main').innerHTML = ' <div id="container3" ><div id = "text1">result</div><div id = "text1a"></div> </div>   <button id="raytraceButton" type="button"> calculate deviation</button> <br> <input type="text" id="counter" value="" readonly> '  ;
+	document.getElementById('main').innerHTML = ' <div id="container3" >  <svg id="gradientsvg"> </svg>  </div> <hr id="con3line1" > </hr> <button type="button" class="btn btn-default btn-block" id="nearestButton" > calculate surface deviation </button> '  ;
+
+    // start a progress bar here
+    NProgress.configure({ parent: '#container3' });
+    NProgress.start();
 
 	var container3 = document.getElementById("container3");
 
+    $("#container3").css('cursor' , 'url("img/rotate32.png"), auto');
+
 	initiateScene3();
+    render3();
 	// Load  both files
 	loadSTL3(binary1, "container3");
 	loadSTL3(binary2, "container3"); // this is now myMesh3
 
-    // prepare raytace calculation button
-    $('#raytraceButton').click(function(){
-        console.log("raytrace calculation started");
-        tryGPGPU(myMesh1,myMesh3);
-        // raycast(myMesh1,myMesh3);
-        console.log("raytrace calculation ended");
+    var myBool = false ;
+    // prepare nearest calculation button
+    $('#nearestButton').click(function(){
+
+        if (myBool == false){
+            // remove existing meshes
+            myScene3.remove(myScene3.getObjectByName("myMesh3a"));
+            myScene3.remove(myScene3.getObjectByName("myMesh3b"));
+            // change UI
+            document.getElementById("nearestButton").innerHTML = 'hold on.. this might take a while..' ;
+            console.log("nearest calculation started");
+            // start a bar 
+            NProgress.start();
+
+            setTimeout(function(){ 
+
+
+                tryNearest();
+                console.log("nearest calculation ended");
+
+                // after calculation is done, draw the gradient bar
+                drawGradientBar(myMin,myMax);
+
+                // change text and link
+                document.getElementById("nearestButton").innerHTML = 'start over' ;
+                myBool = true ;
+                // stop the bar
+                NProgress.done();
+
+
+            }, 100);
+
+           
+        }
+        else{
+            location.reload();
+        }  
     });
+
 
 }
 
@@ -32,6 +72,9 @@ myMesh3a,
 myMesh3b,
 myGeom3;
 var resultCounter = 0;
+
+// this is an array of vec3 of the new posotions
+var myMesh3bAdjusted = [];
 
 
 
@@ -75,8 +118,8 @@ function initiateScene3(){
 function render3(){
         myRenderer3.render(myScene3,myCamera3);
         controls3.update();
-        myMesh3b.geometry.dynamic = true;
-        myMesh3b.geometry.attributes.position.needsUpdate = true;
+        // myMesh3b.geometry.dynamic = true;
+        // myMesh3b.geometry.attributes.position.needsUpdate = true;
         requestAnimationFrame(render3);
 }
 
@@ -103,25 +146,33 @@ function loadSTL3(filePath, myContainer){
         stlLoader.load( filePath, createScene3 ); 
         myRenderer3.setSize( $("#" + myContainer).innerWidth() , $("#" + myContainer).innerHeight() );
         windowContainer.appendChild(myRenderer3.domElement);
-        myRenderer3.setClearColor( 0xDCDCDC , 1 );
+        myRenderer3.setClearColor( 0xddfdfdf , 1 );
         
 
 }
 
 
 function createScene3( geometry, materials ) {
+
+    // start a progress bar here
+    NProgress.configure({ parent: '#container3' });
+    NProgress.start();
+
     // wireframe materials of different colors
     console.log(geometry);
     if(resultCounter == 0){
-        var mat = new THREE.MeshBasicMaterial( {  color: 0x0000FF , opacity: 0.4, transparent: true, wireframe: true } );
+        var mat = new THREE.MeshBasicMaterial( {  color: 0xcab590 , opacity: 0.4, transparent: true, wireframe: true } );
         myMesh3a = new THREE.Mesh( geometry , mat );
         myScene3.add(myMesh3a); 
+        myMesh3a.name = "myMesh3a";
     }
     else{
-        var mat = new THREE.MeshBasicMaterial( {  color: 0xFF0000 , opacity: 0.1, transparent: true, wireframe: true } );
+        var mat = new THREE.MeshBasicMaterial( {  color: 0x82a8a9 , opacity: 0.1, transparent: true, wireframe: true } );
         // double sides so that it detects rays coming from behind
         // mat.side = THREE.DoubleSide;
         myMesh3b = new THREE.Mesh( geometry , mat );
+        myScene3.add(myMesh3b); 
+        myMesh3b.name = "myMesh3b";
     }
 
     
@@ -162,20 +213,69 @@ function createScene3( geometry, materials ) {
     resultCounter+= 1;
     // if acting on second mesh:-
     if(resultCounter == 2){
+        
+
+
+
         // update position of myMesh3
     	run();
 
-        render3();
 
-        myScene3.add(myMesh3b); 
+        // now update the matrix
 
-        myGeom3 = myMesh3b.geometry;
+        myMesh3b.updateMatrix(); 
+
+
+        for(var  i = 0 ; i < myMesh3b.geometry.attributes.position.array.length/3 ; i++){
+
+            var vec = new THREE.Vector3(myMesh3b.geometry.attributes.position.array[i*3 + 0] , 
+                                        myMesh3b.geometry.attributes.position.array[i*3 + 1] , 
+                                        myMesh3b.geometry.attributes.position.array[i*3 + 2]  );
+
+            vec.applyMatrix4( myMesh3b.matrix ); // apply the mesh's matrix transform
+            myMesh3bAdjusted.push(vec);
+        }
+
+
+        NProgress.done();
 
 
 
     }
 
 }
+
+
+
+//
+//
+//
+function drawGradientBar(myMin,myMax){
+
+
+    var s = Snap("#gradientsvg");
+
+    // gradient
+    var myGradient = s.rect(0, 0, 15, 500);
+    myGradient.attr({fill:"L(0, 0, 15, 500)#ffffff-#ff0000" })
+
+    // text
+    var myText1 = s.text(23, 11, String(myMax.toFixed(2)));
+    var myText2 = s.text(23, 498, String(myMin.toFixed(2)));
+    myText1.attr({
+    fill: "#787878",
+    "font-size": "14px"
+    });
+    myText2.attr({
+    fill: "#787878",
+    "font-size": "14px"
+    });
+
+
+}
+
+
+
 
 
 

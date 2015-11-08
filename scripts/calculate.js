@@ -1,3 +1,5 @@
+//3// calculations for aligning
+
 function run(){
 
 
@@ -37,18 +39,8 @@ function run(){
 	quat.setFromRotationMatrix ( rotMat );
 	myMesh3b.rotation.setFromQuaternion ( quat , 'XYZ');
 
-	render3();
 
 	console.log("alignment done")
-
-	//
-	// myMesh3.geometry.verticesNeedUpdate = true;
-	// myMesh3.geometry.dynamic = true;
-
-
-	
-	// myGeom3 = new THREE.Geometry().fromBufferGeometry( myMesh3.geometry );
-	// console.log(myGeom3)
 
 
 }
