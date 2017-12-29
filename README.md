@@ -1,4 +1,4 @@
-# cameno-eq
+# equate
 
 
 This project is browser-based utility to align and compare stl files and can be found here: http://ahmedhosny.github.io/equate/
